@@ -4,7 +4,7 @@
 </p>
 <hr/>
 <h3> About Me </h3>
-<h5 align="center">I am 18 Years Old. I Completed Matriculation from Sadiq Memorial High School(SMHS)
+<h5 align="center">I am 20 Years Old. I Completed Matriculation from Sadiq Memorial High School(SMHS)
                 with 80% Marks. I am Studying ICS from Punjab Group of Colleges (Kasur).
                 I am also pursuing a Full Stack Web Development course at EVS Professional Training Institute, where I
                 am learning new technologies and frameworks to enhance my skills and knowledge. Currently, I'm working
