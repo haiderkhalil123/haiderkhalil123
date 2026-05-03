@@ -1,0 +1,47 @@
+name: Update Age
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # runs daily (ensures exact birthday update)
+  workflow_dispatch: # allows manual trigger
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Calculate exact age
+        run: |
+          DOB="2006-01-23"
+          TODAY=$(date +%Y-%m-%d)
+
+          AGE=$(awk -v dob="$DOB" -v today="$TODAY" 'BEGIN {
+            split(dob, d, "-");
+            split(today, t, "-");
+
+            age = t[1] - d[1];
+
+            if (t[2] < d[2] || (t[2] == d[2] && t[3] < d[3])) {
+              age--;
+            }
+
+            print age;
+          }')
+
+          echo "AGE=$AGE" >> $GITHUB_ENV
+
+      - name: Update README
+        run: |
+          sed -i "s/I am [0-9]\+ Years Old/I am $AGE Years Old/" README.md
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update age to $AGE"
+          git push
